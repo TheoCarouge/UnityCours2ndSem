@@ -5,6 +5,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerShooter2D : MonoBehaviour
 {
+    // SHOOTS
+    private Transform shootingPoint;
+    private GameObject bulletPrefab;
+
+    // CONTROLLER
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
@@ -61,6 +66,18 @@ public class PlayerShooter2D : MonoBehaviour
                     break;
             }
         }*/
+    }
+
+    public void Shoot(InputAction.CallbackContext context)
+    {
+        switch (context.phase)
+        {
+            case InputActionPhase.Performed:
+                Instantiate(bulletPrefab, shootingPoint.position, transform.rotation);
+                break;
+            case InputActionPhase.Canceled:
+                break;
+        }
     }
 
     private bool IsGrounded()
