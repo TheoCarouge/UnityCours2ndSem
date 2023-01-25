@@ -7,8 +7,8 @@ using UnityEngine.InputSystem;
 public class PlayerShooter2D : MonoBehaviour
 {
     // SHOOTS
-    private Transform shootingPoint;
-    private GameObject bulletPrefab;
+    [SerializeField] private Transform shootingPoint;
+    [SerializeField] private GameObject bulletPrefab;
 
     // CONTROLLER
     [SerializeField] private Rigidbody2D rb;
@@ -17,15 +17,20 @@ public class PlayerShooter2D : MonoBehaviour
 
     [SerializeField] Vector2 _directionRotation;
     [SerializeField] Transform _pivotRotation;
+    [SerializeField] private PlayerControls _playerInputs;
+    [SerializeField] private PlayerControls.PlayerActions _playerInputsTest;
 
     private float horizontal;
+    [SerializeField] private float bulletSpeed = 800f;
     private float speed = 8f;
-    private float jumpingPower = 16f;
+    private float jumpingPower = 8f;
     private bool isFacingRight = true;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        // _playerInputs = new PlayerControls();
+        // _playerInputsTest.Shoot.performed += ctx => Shoot();
     }
 
     void Update()
@@ -45,7 +50,6 @@ public class PlayerShooter2D : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         horizontal = context.ReadValue<Vector2>().x;
-        Debug.Log(horizontal);
     }
 
     public void MousePosition(InputAction.CallbackContext context)
@@ -85,16 +89,9 @@ public class PlayerShooter2D : MonoBehaviour
         }*/
     }
 
-    public void Shoot(InputAction.CallbackContext context)
+    public void Shoot()
     {
-        switch (context.phase)
-        {
-            case InputActionPhase.Performed:
-                Instantiate(bulletPrefab, shootingPoint.position, transform.rotation);
-                break;
-            case InputActionPhase.Canceled:
-                break;
-        }
+        Instantiate(bulletPrefab, shootingPoint.position, transform.rotation);
     }
 
     private bool IsGrounded()

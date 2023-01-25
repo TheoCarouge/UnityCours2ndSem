@@ -134,7 +134,7 @@
                 {
                     "name": "",
                     "id": "84c84aeb-4b43-4f4e-9136-4de1e95bd71b",
-                    "path": "<Keyboard>/shift",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
