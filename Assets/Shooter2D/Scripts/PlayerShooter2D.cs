@@ -21,7 +21,6 @@ public class PlayerShooter2D : MonoBehaviour
     [SerializeField] private PlayerControls.PlayerActions _playerInputsTest;
 
     private float horizontal;
-    [SerializeField] private float bulletSpeed = 800f;
     private float speed = 8f;
     private float jumpingPower = 8f;
     private bool isFacingRight = true;
