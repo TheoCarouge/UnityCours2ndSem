@@ -12,6 +12,7 @@ public class PlayerShooter2D : MonoBehaviour
 
     // CONTROLLER
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Rigidbody2D rbBullet;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
@@ -24,10 +25,13 @@ public class PlayerShooter2D : MonoBehaviour
     private float speed = 8f;
     private float jumpingPower = 8f;
     private bool isFacingRight = true;
+    private float speedBullet;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        rbBullet = bulletPrefab.GetComponent<Rigidbody2D>();
+        speedBullet = 100f;
         // _playerInputs = new PlayerControls();
         // _playerInputsTest.Shoot.performed += ctx => Shoot();
     }
@@ -90,7 +94,7 @@ public class PlayerShooter2D : MonoBehaviour
 
     public void Shoot()
     {
-        Instantiate(bulletPrefab, shootingPoint.position, transform.rotation);
+        Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation);
     }
 
     private bool IsGrounded()
