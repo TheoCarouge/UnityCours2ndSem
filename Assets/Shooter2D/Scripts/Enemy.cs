@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Script d'enemy basic j'ai pas eu le temps de test
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float health = 40;

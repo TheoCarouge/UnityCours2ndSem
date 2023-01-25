@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 
+// Script pour le menu (les infos) de la roue d'inventaire
 public class RadialMenuEntry : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public delegate void RadialMenuEntryDelegate(RadialMenuEntry pEntry);
