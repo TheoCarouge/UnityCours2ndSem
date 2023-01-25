@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // enum selection type d'objet
-enum ItemType
+public enum ItemType
 {
     Weapon,
     Ammo,
@@ -16,7 +16,10 @@ enum ItemType
 public class ItemData : ScriptableObject
 {
     [SerializeField] private ItemType itemType;
+    public ItemType ItemType { get { return itemType; } }
     [SerializeField] private string name;
+    public string Name { get { return name; }  }
     [SerializeField] private string description;
-    [SerializeField] private Sprite icon;
+    [SerializeField] private Texture icon;
+    public Texture Icon { get { return icon; } }
 }

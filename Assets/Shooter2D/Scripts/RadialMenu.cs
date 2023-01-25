@@ -18,6 +18,8 @@ public class RadialMenu : MonoBehaviour
 
     List<RadialMenuEntry> Entries;
 
+    [SerializeField] InventoryScriptable inventory;
+
 
     private void Start()
     {
@@ -40,9 +42,11 @@ public class RadialMenu : MonoBehaviour
     // ouvre la roue d'inventaire
     public void Open()
     {
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < inventory.ItemList.Count; i++)
         {
-            AddEntry("Button" + i.ToString(), Icons[i], SetTargetIcon);
+            ItemData currentItem = inventory.ItemList[i];
+            //AddEntry("Button" + i.ToString(), Icons[i], SetTargetIcon);
+            AddEntry(currentItem.Name, currentItem.Icon, SetTargetIcon);
         }
         Rearrange();
     }
@@ -50,7 +54,7 @@ public class RadialMenu : MonoBehaviour
     // ferme la roue d'inventaire
     public void Close()
     {
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < Entries.Count; i++)
         {
             RectTransform rect = Entries[i].GetComponent<RectTransform>();
             GameObject entry = Entries[i].gameObject;
