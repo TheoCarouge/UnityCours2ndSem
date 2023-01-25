@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +14,9 @@ public class PlayerShooter2D : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+
+    [SerializeField] Vector2 _directionRotation;
+    [SerializeField] Transform _pivotRotation;
 
     private float horizontal;
     private float speed = 8f;
@@ -41,6 +45,19 @@ public class PlayerShooter2D : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         horizontal = context.ReadValue<Vector2>().x;
+        Debug.Log(horizontal);
+    }
+
+    public void MousePosition(InputAction.CallbackContext context)
+    {
+        _directionRotation = (context.ReadValue<Vector2>() - (Vector2)Camera.main.WorldToScreenPoint(_pivotRotation.position)).normalized;
+        SetRotationToPivot();
+    }
+
+    private void SetRotationToPivot()
+    {
+        float angle = Mathf.Atan2(_directionRotation.y, _directionRotation.x);
+        _pivotRotation.eulerAngles = new Vector3(0, 0, Mathf.Rad2Deg * angle);
     }
 
     public void Jump(InputAction.CallbackContext context)

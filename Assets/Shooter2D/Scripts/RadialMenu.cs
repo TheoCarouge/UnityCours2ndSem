@@ -14,7 +14,7 @@ public class RadialMenu : MonoBehaviour
 
     [SerializeField] List<Texture> Icons;
 
-    [SerializeField] RawImage TargetIcon;
+    [SerializeField] SpriteRenderer TargetIcon;
 
     List<RadialMenuEntry> Entries;
 
@@ -27,7 +27,7 @@ public class RadialMenu : MonoBehaviour
     }
 
     // ajouter une entrée au tableau selon le Open()
-    void AddEntry(string pLabel, Texture pIcon, RadialMenuEntry.RadialMenuEntryDelegate pCallback)
+    void AddEntry(string pLabel, Sprite pIcon, RadialMenuEntry.RadialMenuEntryDelegate pCallback)
     {
         GameObject entry = Instantiate(entryPrefab, transform);
 
@@ -102,6 +102,6 @@ public class RadialMenu : MonoBehaviour
     // set une icone
     void SetTargetIcon(RadialMenuEntry pEntry)
     {
-        TargetIcon.texture = pEntry.GetIcon();
+        TargetIcon.sprite = pEntry.GetIcon();
     }
 }

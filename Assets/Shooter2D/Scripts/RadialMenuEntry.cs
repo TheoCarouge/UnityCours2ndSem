@@ -12,7 +12,7 @@ public class RadialMenuEntry : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public delegate void RadialMenuEntryDelegate(RadialMenuEntry pEntry);
     [SerializeField] TextMeshProUGUI Label;
 
-    [SerializeField] RawImage Icon;
+    [SerializeField] Image Icon;
 
     RectTransform Rect;
     RadialMenuEntryDelegate Callback;
@@ -27,14 +27,14 @@ public class RadialMenuEntry : MonoBehaviour, IPointerClickHandler, IPointerEnte
         Label.text = pText;
     }
 
-    public void SetIcon(Texture pIcon)
+    public void SetIcon(Sprite pIcon)
     {
-        Icon.texture = pIcon;
+        Icon.GetComponent<Image>().sprite = pIcon;
     }
 
-    public Texture GetIcon()
+    public Sprite GetIcon()
     {
-        return (Icon.texture);
+        return (Icon.GetComponent<Image>().sprite);
     }
 
     public void SetCallback(RadialMenuEntryDelegate pCallback)

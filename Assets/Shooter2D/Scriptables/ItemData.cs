@@ -20,6 +20,6 @@ public class ItemData : ScriptableObject
     [SerializeField] private string name;
     public string Name { get { return name; }  }
     [SerializeField] private string description;
-    [SerializeField] private Texture icon;
-    public Texture Icon { get { return icon; } }
+    [SerializeField] private Sprite icon;
+    public Sprite Icon { get { return icon; } }
 }
