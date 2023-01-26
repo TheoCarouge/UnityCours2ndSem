@@ -18,4 +18,13 @@ public class Bullet : MonoBehaviour
     {
         rb.velocity = transform.right * speedBullet;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<Enemy>(out Enemy enemyComponent))
+        {
+            enemyComponent.TakeDamage(1);
+        }
+        Destroy(gameObject);
+    }
 }

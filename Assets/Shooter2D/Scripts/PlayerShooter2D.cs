@@ -25,7 +25,10 @@ public class PlayerShooter2D : MonoBehaviour
     private float speed = 8f;
     private float jumpingPower = 8f;
     private bool isFacingRight = true;
+    [SerializeField] private bool shooting;
     private float speedBullet;
+    private float reloadTime;
+    private float resetReload = .1f;
 
     private void Awake()
     {
@@ -36,8 +39,34 @@ public class PlayerShooter2D : MonoBehaviour
         // _playerInputsTest.Shoot.performed += ctx => Shoot();
     }
 
+    private void OnEnable()
+    {
+        _playerInputs = new PlayerControls();
+
+        _playerInputs.Enable();
+        _playerInputs.Player.Shoot.performed += ctx => Shooting();
+        _playerInputs.Player.Shoot.canceled += ctx => CanceledShooting();
+    }
+    private void OnDisable()
+    {
+        _playerInputs.Disable();
+        _playerInputs.Player.Shoot.performed -= ctx => Shooting();
+        _playerInputs.Player.Shoot.canceled -= ctx => CanceledShooting();
+    }
+
+    void Shooting()
+    {
+        shooting = true;
+    }
+
+    void CanceledShooting()
+    {
+        shooting = false;
+    }
+
     void Update()
     {
+        Shoot();
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
 
         if (!isFacingRight && horizontal > 0f)
@@ -94,7 +123,12 @@ public class PlayerShooter2D : MonoBehaviour
 
     public void Shoot()
     {
-        Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation);
+        reloadTime -= Time.deltaTime;
+        if (shooting && reloadTime < 0)
+        {
+            Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation);
+            reloadTime = resetReload;
+        }
     }
 
     private bool IsGrounded()
