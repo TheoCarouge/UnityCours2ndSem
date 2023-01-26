@@ -6,18 +6,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerShooter2D : MonoBehaviour
 {
-    // SHOOTS
-    [SerializeField] private Transform shootingPoint;
-    [SerializeField] private GameObject bulletPrefab;
-
     // CONTROLLER
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Rigidbody2D rbBullet;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
     [SerializeField] Vector2 _directionRotation;
-    [SerializeField] Transform _pivotRotation;
+   
     [SerializeField] private PlayerControls _playerInputs;
     [SerializeField] private PlayerControls.PlayerActions _playerInputsTest;
 
@@ -25,16 +20,15 @@ public class PlayerShooter2D : MonoBehaviour
     private float speed = 8f;
     private float jumpingPower = 8f;
     private bool isFacingRight = true;
-    [SerializeField] private bool shooting;
-    private float speedBullet;
-    private float reloadTime;
-    private float resetReload = .1f;
-
+   
+    private WeaponController weaponController;
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        rbBullet = bulletPrefab.GetComponent<Rigidbody2D>();
-        speedBullet = 100f;
+        
+        weaponController = GetComponent<WeaponController>();
+        
         // _playerInputs = new PlayerControls();
         // _playerInputsTest.Shoot.performed += ctx => Shoot();
     }
@@ -56,12 +50,12 @@ public class PlayerShooter2D : MonoBehaviour
 
     void Shooting()
     {
-        shooting = true;
+        weaponController.Shooting = true;
     }
 
     void CanceledShooting()
     {
-        shooting = false;
+        weaponController.Shooting = false;
     }
 
     void Update()
@@ -77,6 +71,7 @@ public class PlayerShooter2D : MonoBehaviour
         {
             Flip();
         }
+       
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -86,14 +81,14 @@ public class PlayerShooter2D : MonoBehaviour
 
     public void MousePosition(InputAction.CallbackContext context)
     {
-        _directionRotation = (context.ReadValue<Vector2>() - (Vector2)Camera.main.WorldToScreenPoint(_pivotRotation.position)).normalized;
+        _directionRotation = (context.ReadValue<Vector2>() - (Vector2)Camera.main.WorldToScreenPoint(weaponController.pivotRotation.position)).normalized;
         SetRotationToPivot();
     }
 
     private void SetRotationToPivot()
     {
         float angle = Mathf.Atan2(_directionRotation.y, _directionRotation.x);
-        _pivotRotation.eulerAngles = new Vector3(0, 0, Mathf.Rad2Deg * angle);
+        weaponController.SetPivotRotation(new Vector3(0, 0, Mathf.Rad2Deg * angle));
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -123,12 +118,7 @@ public class PlayerShooter2D : MonoBehaviour
 
     public void Shoot()
     {
-        reloadTime -= Time.deltaTime;
-        if (shooting && reloadTime < 0)
-        {
-            Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation);
-            reloadTime = resetReload;
-        }
+        weaponController.Shoot();
     }
 
     private bool IsGrounded()

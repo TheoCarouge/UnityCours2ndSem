@@ -22,4 +22,6 @@ public class ItemData : ScriptableObject
     [SerializeField] private string description;
     [SerializeField] private Sprite icon;
     public Sprite Icon { get { return icon; } }
+
+    //[field: SerializeField] public Sprite Icon2 { get; private set; }
 }

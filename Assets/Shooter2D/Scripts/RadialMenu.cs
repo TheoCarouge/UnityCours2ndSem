@@ -42,6 +42,7 @@ public class RadialMenu : MonoBehaviour
     // ouvre la roue d'inventaire
     public void Open()
     {
+       
         for (int i = 0; i < inventory.ItemList.Count; i++)
         {
             ItemData currentItem = inventory.ItemList[i];
@@ -54,6 +55,7 @@ public class RadialMenu : MonoBehaviour
     // ferme la roue d'inventaire
     public void Close()
     {
+ 
         for (int i = 0; i < Entries.Count; i++)
         {
             RectTransform rect = Entries[i].GetComponent<RectTransform>();
