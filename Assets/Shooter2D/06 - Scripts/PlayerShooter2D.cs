@@ -1,33 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerShooter2D : MonoBehaviour
 {
     // CONTROLLER
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Rigidbody2D _rigidbody2D;
+    [SerializeField] private Transform _groundCheck;
+    [SerializeField] private LayerMask _groundLayer;
 
     [SerializeField] Vector2 _directionRotation;
    
     [SerializeField] private PlayerControls _playerInputs;
     [SerializeField] private PlayerControls.PlayerActions _playerInputsTest;
 
-    private float horizontal;
-    private float speed = 8f;
-    private float jumpingPower = 8f;
-    private bool isFacingRight = true;
+
+    private float _horizontal;
+    private float _speed = 8f;
+    private float _jumpingPower = 8f;
+
+
+    private bool _isFacingRight = true;
    
-    private WeaponController weaponController;
+    private WeaponController _weaponController;
     
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
         
-        weaponController = GetComponent<WeaponController>();
+        _weaponController = GetComponent<WeaponController>();
         
         // _playerInputs = new PlayerControls();
         // _playerInputsTest.Shoot.performed += ctx => Shoot();
@@ -50,56 +52,72 @@ public class PlayerShooter2D : MonoBehaviour
 
     void Shooting()
     {
-        weaponController.Shooting = true;
+        _weaponController.Shooting = true;
     }
 
     void CanceledShooting()
     {
-        weaponController.Shooting = false;
+        _weaponController.Shooting = false;
     }
 
     void Update()
     {
         Shoot();
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        VelocityApplier();
+        // FacingRight(); // no need
+    }
 
-        if (!isFacingRight && horizontal > 0f)
+    public void FacingRight()
+    {
+        if (!_isFacingRight && _horizontal > 0f)
         {
             Flip();
         }
-        else if (!isFacingRight && horizontal < 0f)
+        else if (!_isFacingRight && _horizontal < 0f)
         {
             Flip();
         }
-       
+    }
+
+    private void Flip()
+    {
+        _isFacingRight = !_isFacingRight;
+        Vector3 localScale = transform.localScale;
+        localScale.x *= -1f;
+        transform.localScale = localScale;
+    }
+
+    public void VelocityApplier()
+    {
+        _rigidbody2D.velocity = new Vector2(_horizontal * _speed, _rigidbody2D.velocity.y);
     }
 
     public void Move(InputAction.CallbackContext context)
     {
-        horizontal = context.ReadValue<Vector2>().x;
+        _horizontal = context.ReadValue<Vector2>().x;
     }
 
     public void MousePosition(InputAction.CallbackContext context)
     {
-        _directionRotation = (context.ReadValue<Vector2>() - (Vector2)Camera.main.WorldToScreenPoint(weaponController.pivotRotation.position)).normalized;
+        _directionRotation = (context.ReadValue<Vector2>() - (Vector2)Camera.main.WorldToScreenPoint(_weaponController.pivotRotation.position)).normalized;
         SetRotationToPivot();
     }
 
     private void SetRotationToPivot()
     {
         float angle = Mathf.Atan2(_directionRotation.y, _directionRotation.x);
-        weaponController.SetPivotRotation(new Vector3(0, 0, Mathf.Rad2Deg * angle));
+        _weaponController.SetPivotRotation(new Vector3(0, 0, Mathf.Rad2Deg * angle));
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.performed && IsGrounded())
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, _jumpingPower);
         }
-        if (context.canceled && rb.velocity.y > 0f)
+        if (context.canceled && _rigidbody2D.velocity.y > 0f)
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, _rigidbody2D.velocity.y * 0.5f);
         }
 
         /*if (IsGrounded())
@@ -118,19 +136,11 @@ public class PlayerShooter2D : MonoBehaviour
 
     public void Shoot()
     {
-        weaponController.Shoot();
+        _weaponController.Shoot();
     }
 
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        return Physics2D.OverlapCircle(_groundCheck.position, 0.2f, _groundLayer);
     }
-
-    private void Flip()
-    {
-        isFacingRight = !isFacingRight;
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1f;
-        transform.localScale = localScale;
-    }    
 }

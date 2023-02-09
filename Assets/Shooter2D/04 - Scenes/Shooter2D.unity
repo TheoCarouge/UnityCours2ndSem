@@ -404,9 +404,9 @@ GameObject:
   - component: {fileID: 324604996}
   - component: {fileID: 324604998}
   - component: {fileID: 324604999}
-  - component: {fileID: 324605000}
   - component: {fileID: 324605001}
   - component: {fileID: 324605002}
+  - component: {fileID: 324605003}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -531,24 +531,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &324605000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 324604995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6081029f03f640341b39ed81505c9026, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 324604998}
-  groundCheck: {fileID: 707759054}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  _directionRotation: {x: 0, y: 0}
 --- !u!114 &324605001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -575,30 +557,18 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 324605000}
-        m_TargetAssemblyTypeName: PlayerShooter2D, Assembly-CSharp
-        m_MethodName: Move
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: f1cbb83f-5186-4a95-a571-4b624406cc7f
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 324605000}
-        m_TargetAssemblyTypeName: PlayerShooter2D, Assembly-CSharp
-        m_MethodName: Jump
-        m_Mode: 0
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -612,7 +582,7 @@ MonoBehaviour:
     m_ActionName: Player/Shoot[/Keyboard/shift]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 324605000}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerShooter2D, Assembly-CSharp
         m_MethodName: MousePosition
         m_Mode: 0
@@ -640,16 +610,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 324604995}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 342e9bc130fc0444aba9ad01fa3b4d00, type: 3}
+  m_Script: {fileID: 11500000, guid: d55061dbf24f102438b76ac07cd24f8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootingPoint: {fileID: 1429120970}
-  bulletPrefab: {fileID: 6721565338224178142, guid: 637e7aafb69d3a44780fb2b279e31afb, type: 3}
-  rbBullet: {fileID: 0}
-  _pivotRotation: {fileID: 1155683095}
-  weaponRenderer: {fileID: 115608616}
-  shooting: 0
-  resetReload: 0.1
+  playerMovement: {fileID: 324605003}
+  _rigidbody2D: {fileID: 324604998}
+  _groundCheck: {fileID: 707759054}
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  _directionRotation: {x: 0, y: 0}
+--- !u!114 &324605003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324604995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ed7a606929087043bd5460f6195291e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputsReceiver: {fileID: 324605002}
 --- !u!1 &456985637
 GameObject:
   m_ObjectHideFlags: 0

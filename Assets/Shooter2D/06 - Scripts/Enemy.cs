@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        var player = FindObjectOfType<PlayerShooter2D>();
+        var player = FindObjectOfType<InputsReceiver>();
 
         var direction = player.transform.position - transform.position;
         weaponController.SetDirection(direction);

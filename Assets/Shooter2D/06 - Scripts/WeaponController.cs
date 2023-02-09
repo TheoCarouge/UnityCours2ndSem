@@ -53,6 +53,6 @@ public class WeaponController : MonoBehaviour
     {
         // Affiche correctement le sprite de larme suivant langle
         weaponRenderer.flipY = Mathf.Abs(_pivotRotation.localEulerAngles.z) > 90f && Mathf.Abs(_pivotRotation.localEulerAngles.z) < 270f;
-        Debug.Log(Mathf.Abs(_pivotRotation.localEulerAngles.z));
+        // Debug.Log(Mathf.Abs(_pivotRotation.localEulerAngles.z));
     }
 }
