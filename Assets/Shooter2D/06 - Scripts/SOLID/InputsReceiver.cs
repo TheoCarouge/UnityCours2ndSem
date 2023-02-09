@@ -17,10 +17,14 @@ public class InputsReceiver : MonoBehaviour
     [SerializeField] private PlayerControls _playerControls;
     [SerializeField] private PlayerControls.PlayerActions _playerControlsActions;
 
-    // VARS
+    // ACCESSEURS
     private float _horizontal;
     public float Horizontal => _horizontal;
 
+    private float _vertical;
+    public float Vertical => _vertical;
+
+    // VARS
     private float _speed = 8f;
 
     private float _jumpingPower = 8f;
@@ -43,6 +47,10 @@ public class InputsReceiver : MonoBehaviour
     }
 
     private void SetHorizontal(InputAction.CallbackContext context)
+    {
+        _horizontal = context.ReadValue<Vector2>().x;
+    }
+    private void SetVertical(InputAction.CallbackContext context)
     {
         _horizontal = context.ReadValue<Vector2>().x;
     }
