@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 7634536921805079720}
   - component: {fileID: 7634536921805079735}
   - component: {fileID: 568346556384147262}
-  - component: {fileID: 3711576897165171612}
+  - component: {fileID: 6646770495519981107}
   m_Layer: 0
   m_Name: Ennemy
   m_TagString: Untagged
@@ -267,7 +267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   maxHealth: 3
---- !u!114 &3711576897165171612
+--- !u!114 &6646770495519981107
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -276,16 +276,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 7634536921805079734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 342e9bc130fc0444aba9ad01fa3b4d00, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d7dc7fb2c2fc444baae66fcb4bdd1c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootingPoint: {fileID: 4050414658396469871}
-  bulletPrefab: {fileID: 6721565338224178142, guid: 637e7aafb69d3a44780fb2b279e31afb, type: 3}
-  rbBullet: {fileID: 0}
+  _shootingPoint: {fileID: 4050414658396469871}
   _pivotRotation: {fileID: 5155709059110084929}
-  weaponRenderer: {fileID: 2543699995083376063}
-  shooting: 0
-  resetReload: 1
+  _bulletPrefab: {fileID: 6721565338224178142, guid: 637e7aafb69d3a44780fb2b279e31afb, type: 3}
+  _inputsReceiver: {fileID: 0}
+  _rigidbody2DBullet: {fileID: 6708710671157185431, guid: 637e7aafb69d3a44780fb2b279e31afb, type: 3}
+  _weaponRenderer: {fileID: 2543699995083376063}
+  resetReload: 2
+  _directionRotation: {x: 0, y: 0}
 --- !u!1 &7838773336745093438
 GameObject:
   m_ObjectHideFlags: 0

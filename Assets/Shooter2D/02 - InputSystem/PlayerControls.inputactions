@@ -1,5 +1,5 @@
 {
-    "name": "PlayerInputs",
+    "name": "PlayerControls",
     "maps": [
         {
             "name": "Player",
@@ -36,6 +36,15 @@
                     "name": "Mouse",
                     "type": "Value",
                     "id": "eef58d80-6231-4b6e-851b-82efc407457a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Joystick",
+                    "type": "Value",
+                    "id": "7863cc69-cbe2-40d2-8c94-bf99517f6d6e",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -111,17 +120,6 @@
                 },
                 {
                     "name": "",
-                    "id": "30f7feb7-d28f-4d05-a277-2aac718a50f1",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "85286970-f635-4916-aa31-7448fa0602b5",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -161,6 +159,28 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Mouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "30f7feb7-d28f-4d05-a277-2aac718a50f1",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "14e9f5fa-b8df-4d64-bad9-ea63125cd8fd",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Joystick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

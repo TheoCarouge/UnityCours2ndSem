@@ -6,12 +6,12 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] float health, maxHealth = 3f;
 
-    private WeaponController weaponController;
+    private Shoot _playerShoot;
 
     private void Start()
     {
         health = maxHealth;
-        weaponController = GetComponent<WeaponController>();
+        _playerShoot = GetComponent<Shoot>();
     }
 
     public void TakeDamage(float damage)
@@ -29,13 +29,11 @@ public class Enemy : MonoBehaviour
         var player = FindObjectOfType<InputsReceiver>();
 
         var direction = player.transform.position - transform.position;
-        weaponController.SetDirection(direction);
+        _playerShoot.SetDirection(direction);
         if(player != null)
         {
-            weaponController.Shooting = true;
-            weaponController.Shoot();
-            
+            _playerShoot.IsShooting = true;
+            _playerShoot.Shooting();
         }
-            
     }
 }
