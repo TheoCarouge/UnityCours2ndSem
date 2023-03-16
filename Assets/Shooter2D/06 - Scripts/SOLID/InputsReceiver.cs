@@ -6,13 +6,20 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class InputsReceiver : MonoBehaviour
+public class InputsReceiver : MonoBehaviour, IDataPersistence
 {
+    private ParticleSystem deathParticles;
+
+    [Header("Respawn Point")]
+    [SerializeField] private Transform respawnPoint;
+
+    [Header("Refs")]
     [SerializeField] PlayerAim _playerAim;
+    [SerializeField] Movement _playerMovement;
     private Shoot _playerShoot;
 
-    [SerializeField] Movement _playerMovement;
-    // CONTROLLER
+
+    [Header("Controller")]
     [SerializeField] private Rigidbody2D _rigidbody2D;
 
     [SerializeField] Vector2 _directionRotation;
@@ -20,30 +27,34 @@ public class InputsReceiver : MonoBehaviour
     [SerializeField] private PlayerControls _playerControls;
     [SerializeField] private PlayerControls.PlayerActions _playerControlsActions;
 
-    // ACCESSEURS
+    [Header("Accesseurs")]
     private float _horizontal;
     public float Horizontal => _horizontal;
 
     private float _vertical;
     public float Vertical => _vertical;
-
-    // VARS
-    private float _speed = 8f;
-    private float _jumpingPower = 8f;
-
-    private bool _isUsingGamepad = false;
     public bool IsUsingGamepad
     {
         get { return _isUsingGamepad; }
         set { _isUsingGamepad = value; }
     }
 
+    [Header("Variables")]
+    private float _speed = 8f;
+    private float _jumpingPower = 8f;
+
+    private bool _isUsingGamepad = false;
     private bool _isFacingRight = true;
+
 
     private void Awake()
     {
         _playerShoot = GetComponent<Shoot>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        deathParticles = GetComponentInChildren<ParticleSystem>();
+
+        // prevents from first play if Join game
+        deathParticles.Stop();
 
         _playerControls = new PlayerControls();
     }
@@ -124,6 +135,16 @@ public class InputsReceiver : MonoBehaviour
         }
     }
 
+    public void LoadData(GameData data)
+    {
+        this.transform.position = data.playerPosition;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.playerPosition = this.transform.position;
+    }
+
     public void Shoot()
     {
         _playerShoot.Shooting();
@@ -132,5 +153,35 @@ public class InputsReceiver : MonoBehaviour
     public void VelocityApplier()
     {
         _rigidbody2D.velocity = new Vector2(_horizontal * _speed, _rigidbody2D.velocity.y);
+    }
+
+    private IEnumerator HandleDeath()
+    {
+        // freeze player movemet
+        _rigidbody2D.velocity = Vector3.zero;
+        // send off event that we died for other components in our system to pick up
+        GameEventsManager.instance.PlayerDeath();
+        deathParticles.Play();
+
+        yield return new WaitForSeconds(0f);
+
+        Respawn();
+    }
+
+    private void Respawn()
+    {
+        deathParticles.Stop();
+
+        // move the player to the respawn point
+        this.transform.position = respawnPoint.position;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // if we collided with anything in the harmful layer, death occurs
+        if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Spikes")))
+        {
+            StartCoroutine(HandleDeath());
+        }
     }
 }

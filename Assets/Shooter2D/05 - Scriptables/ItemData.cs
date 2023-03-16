@@ -16,6 +16,7 @@ public enum ItemType
 public class ItemData : ScriptableObject
 {
     [SerializeField] private ItemType itemType;
+
     public ItemType ItemType { get { return itemType; } }
     [SerializeField] private string name;
     public string Name { get { return name; }  }

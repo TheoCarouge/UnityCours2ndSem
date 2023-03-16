@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Weapon5
   m_EditorClassIdentifier: 
   itemType: 0
+  id: 7a514c47-783f-4fe8-ac74-daddd8dcbf9a
   name: Kar98k
   description: Fusil
   icon: {fileID: 21300000, guid: 2f728bd81568faa468d6c1c80fc2a1cd, type: 3}

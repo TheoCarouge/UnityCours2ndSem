@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Weapon4
   m_EditorClassIdentifier: 
   itemType: 0
+  id: 84b6c67d-703f-4181-8c01-f74c053c00e0
   name: Thompson
   description: Mitraillette
   icon: {fileID: 21300000, guid: 9d7d6061e4de5224995f6f2af87c9efd, type: 3}

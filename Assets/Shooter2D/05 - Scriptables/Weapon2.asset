@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Weapon2
   m_EditorClassIdentifier: 
   itemType: 0
+  id: 4a487243-6678-4fa8-8c6c-ca688028e3a4
   name: AWM
   description: Sniper
   icon: {fileID: 21300000, guid: efd7f64182e33014da7c003f1b27bb63, type: 3}

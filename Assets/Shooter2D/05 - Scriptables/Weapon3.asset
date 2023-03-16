@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Weapon3
   m_EditorClassIdentifier: 
   itemType: 0
+  id: 239e2f1d-0d11-41e6-9e22-7b24ccb8719d
   name: Shotgun
   description: Fusil a pompe
   icon: {fileID: 21300000, guid: 8d3627401e0051f40861ba72ad6a206b, type: 3}

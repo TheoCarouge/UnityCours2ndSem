@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Weapon6
   m_EditorClassIdentifier: 
   itemType: 0
+  id: 4672a289-a745-4a20-9103-8ef325fba15b
   name: Deagle
   description: Deagle
   icon: {fileID: 21300000, guid: 745a23d23ef000e44a04272510a85936, type: 3}
